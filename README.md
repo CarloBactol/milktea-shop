@@ -41,7 +41,7 @@
 ## Project Objective
 
 -   User Client
-    home-best-seller-products.png
+    https://github.com/CarloBactol/milktea-shop/commit/eeae1cfea989863c009dd6fa7830c2c424f37eea
 
     -   User can view best seller Products
     -   User can view Products
