@@ -1,17 +1,13 @@
 
 <div class="container my-2">
-  <br>
-  <br>
+  <br><br><br>
   <div id="carouselExampleInterval" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active" data-bs-interval="10000">
-        <img src="{{ asset('assets/products/1663073046.jpeg') }}" class="d-block" height="300px" width="100%" alt="...">
+        <img src="{{ asset('assets/banner/banner-one.jpg') }}" class="d-block" height="300px" width="100%" alt="...">
       </div>
       <div class="carousel-item" data-bs-interval="2000">
-        <img src="{{ asset('assets/products/1663073920.jpeg') }}" class="d-block" height="300px" width="100%" alt="...">
-      </div>
-      <div class="carousel-item">
-        <img src="{{ asset('assets/products/1663073046.jpeg') }}" class="d-block" height="300px" width="100%" alt="...">
+        <img src="{{ asset('assets/banner/banner-two.jpg') }}" class="d-block" height="300px" width="100%" alt="...">
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">

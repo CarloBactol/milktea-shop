@@ -42,7 +42,7 @@ Cart
                             </td>
                             <td>{{ $item->product->name }}</td>
                             <td>{{ $item->sugar_level}}%</td>
-                            <td>{{ $item->addOns->name }}</td>
+                            <td>{{ $item->addOns->name}} </td>
                             <td>{{ $item->product_qty }}</td>
                             <td>&#8369;{{ $item->bottle_size }}</td>
                             <td>
@@ -56,19 +56,16 @@ Cart
                     $sum_of_price_and_add_ons = $item->bottle_size + $item->addOns->price;
                     $total += $sum_of_price_and_add_ons * $item->product_qty;
                     @endphp
-                    @endforeach
                 </table>
-
             </div>
         </div>
         <div class="card-footer ">
             Grand Total: <span>&#8369; {{ $total ?? "" }} </span> <a href="{{ url('/checkout') }}"
                 class="btn btn-warning btn-md float-end">Checkout</a>
         </div>
+        @endforeach
     </div>
 </div>
-@endsection
-
 @section('scripts')
 <script>
     $(document).ready(function() {
