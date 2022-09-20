@@ -41,6 +41,9 @@
 ## Project Objective
 
 -   User Client
+
+    ## Best Seller Components
+
     ![BESST_SELLER_PRODUCTS!](home-best-seller-products.png)
 
     -   User can view best seller Products
