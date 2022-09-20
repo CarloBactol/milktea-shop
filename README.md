@@ -40,23 +40,7 @@
 
 ## Project Objective
 
--   User Client
-
-    ## Final Output
-
-    ![BESST_SELLER_PRODUCTS!](home-best-seller-products.png)
-    ![BESST_SELLER_PRODUCTS!](Shop-page.png)
-    ![BESST_SELLER_PRODUCTS!](single-product.png)
-    ![BESST_SELLER_PRODUCTS!](cart-page.png)
-    ![BESST_SELLER_PRODUCTS!](checkout-page.png)
-    ![BESST_SELLER_PRODUCTS!](paypal-payment.png)
-    ![BESST_SELLER_PRODUCTS!](my-order.png)
-
-    ![BESST_SELLER_PRODUCTS!](view-orders-details.png)
-    ![BESST_SELLER_PRODUCTS!](admin-dashboard.png)
-    ![BESST_SELLER_PRODUCTS!](product-list.png)
-    ![BESST_SELLER_PRODUCTS!](orders-list.png)
-
+-   -   User Client
     -   User can view best seller Products
     -   User can view Products
     -   User can orders Product
@@ -68,3 +52,33 @@
     -   Manage Create, Read, Update, Delete Products
     -   Manage Create, Read, Update, Delete Bottle Size
     -   Manage Create, Read, Update, Delete Add-Ons or Sinkers
+
+## Final Output:
+
+    # Uers Interface
+
+-   -   Best Seller Page
+        ![BESST_SELLER_PRODUCTS!](public/assets/mock/home-best-seller-products.png)
+    -   Shop Page
+        ![SHOP_PAGE!](public/assets/mock/Shop-page.png)
+    -   Single Products Page
+        ![SINGLE_PRODUCT!](public/assets/mock/single-product.png)
+    -   Cart Page
+        ![CART_PAGE!](public/assets/mock/cart-page.png)
+    -   Checkout Page
+        ![CHECKOUT_PAGE!](public/assets/mock/checkout-page.png)
+    -   Paypal Page
+        ![PAYPAL_PAYMENT_PAGE!](public/assets/mock/paypal-payment.png)
+    -   My Order Page
+        ![MY_ORDER_PAGE!](public/assets/mock/my-order.png)
+    -   Order Details Page
+        ![VIEW_ORDER_DETAIL_PAGE!](public/assets/mock/view-orders-details.png)
+
+    # Admin Interface
+
+    -   Dashboard Page
+        ![DASHBOARD_PAGE!](public/assets/mock/admin-dashboard.png)
+    -   Product Page
+        ![BESST_SELLER_PRODUCTS!](public/assets/mock/product-list.png)
+    -   Order Page
+        ![BESST_SELLER_PRODUCTS!](public/assets/mock/orders-list.png)
