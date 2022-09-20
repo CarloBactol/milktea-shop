@@ -45,16 +45,16 @@
     ## Final Output
 
     ![BESST_SELLER_PRODUCTS!](home-best-seller-products.png)
-    ![BESST_SELLER_PRODUCTS!](Shop-page.png.png)
-    ![BESST_SELLER_PRODUCTS!](single-product.png.png)
-    ![BESST_SELLER_PRODUCTS!](cart-page.png.png)
-    ![BESST_SELLER_PRODUCTS!](checkout-page.png.png)
-    ![BESST_SELLER_PRODUCTS!](paypal-payment.png.png)
-    ![BESST_SELLER_PRODUCTS!](my-order.png.png)
+    ![BESST_SELLER_PRODUCTS!](Shop-page.png)
+    ![BESST_SELLER_PRODUCTS!](single-product.png)
+    ![BESST_SELLER_PRODUCTS!](cart-page.png)
+    ![BESST_SELLER_PRODUCTS!](checkout-page.png)
+    ![BESST_SELLER_PRODUCTS!](paypal-payment.png)
+    ![BESST_SELLER_PRODUCTS!](my-order.png)
 
-    ![BESST_SELLER_PRODUCTS!](view-orders-details.png.png)
-    ![BESST_SELLER_PRODUCTS!](admin-dashboard.png.png)
-    ![BESST_SELLER_PRODUCTS!](product-list.png.png)
+    ![BESST_SELLER_PRODUCTS!](view-orders-details.png)
+    ![BESST_SELLER_PRODUCTS!](admin-dashboard.png)
+    ![BESST_SELLER_PRODUCTS!](product-list.png)
     ![BESST_SELLER_PRODUCTS!](orders-list.png)
 
     -   User can view best seller Products
