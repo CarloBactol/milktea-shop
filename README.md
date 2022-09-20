@@ -41,6 +41,7 @@
 ## Project Objective
 
 -   User Client
+    home-best-seller-products.png
 
     -   User can view best seller Products
     -   User can view Products
