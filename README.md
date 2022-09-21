@@ -33,6 +33,7 @@
 -   Make sure you already have xampp install on your machine || https://www.apachefriends.org/download.html
 -   Make sure you already have composer install on your machine || https://getcomposer.org/download/
 -   Run composer install in the project root
+-   Create Key || php artisan key:generate
 -   Create a new MySQL database named milkteashop
 -   Copy the .env.example file to a new file called .env
 -   Fill out the corresponding database values in the .env file
