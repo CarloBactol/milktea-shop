@@ -100,8 +100,10 @@ View Order
                                 <tr>
                                     <td>Payment mode:</td>
                                     <td>{{ $orders->payment_mode }}</td>
-                                    <td colspan="3">Grand Total:</td>
-                                    <td colspan="2">&#8369; {{ $orders->total_price }}</td>
+                                    <td>Shipping Fee:</td>
+                                    <td>&#8369;{{ $orders->shipping }}</td>
+                                    <td >Grand Total:</td>
+                                    <td >&#8369;{{ $orders->total_price }}</td>
                                 </tr>
                             </tfoot>
                     </table>

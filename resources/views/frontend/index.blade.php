@@ -3,7 +3,10 @@
 @section('title')
 Home
 @endsection
+
+
 @section('content')
+
 @include('layouts.inc.slider-frontend')
 <div class="container my-5">
   <div class="row">
@@ -13,11 +16,11 @@ Home
       <div class="item">
         <div class="card">
          <a href="{{ url('/view-product/'.$item->id) }}">
-         @if ($item->image == 'NULL')
-           <img src="{{ asset('assets/products/1.jpg') }}" alt="" height="200px">
-         @else
-         <img src="{{asset('assets/products/'. $item->image) }}" alt="" height="200px">
-         @endif
+            @if ($item->image == 'NULL')
+            <img src="{{ asset('assets/products/1.jpg') }}" alt="" height="200px">
+            @else
+            <img src="{{asset('assets/products/'. $item->image) }}" alt="" height="200px">
+            @endif
          </a>
           <div class="card-body">
             <h5>{{ $item->name }}</h5>
@@ -28,10 +31,9 @@ Home
         </div>
       </div>
       @endforeach
-    </div
     </div>
+  </div>
 </div>
-
 <!-- Footer-->
 @include('layouts.inc.footer-frontend')
 

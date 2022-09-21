@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\OrderItem;
+use App\Models\ShippingFee;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +16,9 @@ class CheckoutController extends Controller
 {
     public function index()
     {
+        $shipping_fees = ShippingFee::all();
         $carts = Cart::where('user_id', Auth::id())->get();
-        return view('frontend.checkout', compact('carts'));
+        return view('frontend.checkout', compact('carts', 'shipping_fees'));
     }
 
     public function place_order(Request $request)
@@ -28,7 +30,7 @@ class CheckoutController extends Controller
             'address' => 'required',
             'city' => 'required',
             'country' => 'required',
-            'postal_code' => 'required',
+            'postal_code' => 'required|integer',
         ]);
 
 
@@ -45,6 +47,7 @@ class CheckoutController extends Controller
         $order->postal_code = $request->input('postal_code');
         $order->tracking_no = time() . rand(1000, 9999);
 
+        $order->shipping = $request->input('shipping_fee');
         $order->payment_mode = $request->input('payment_mode');
         $order->payment_id = $request->input('payment_id');
 

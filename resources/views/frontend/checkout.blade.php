@@ -5,6 +5,10 @@ Checkout
 @endsection
 
 @section('content')
+@php $ship_fee = 0; @endphp
+@foreach ($shipping_fees as $ship)
+    <input type="hidden" value="{{  $ship_fee += $ship_fee + $ship->shipping; }}">
+@endforeach
 <div class="container my-4">
     <br><br>
     <form action="{{ url('/place-order') }}" method="POST" enctype="multipart/form-data">
@@ -183,23 +187,25 @@ Checkout
                                     <td>{{ $cart->sugar_level}}%</td>
                                     <td>{{ $cart->addOns->name }}</td>
                                     <td>{{ $cart->product_qty}}</td>
-                                    <td>&#8369; {{ $cart->bottle_size }}</td>
+                                    <td>&#8369;{{ $cart->bottle_size }}</td>
                                 </tr>
+
                                 @php
                                 $sum = $cart->bottle_size + $cart->addOns->price;
-                                $total += $sum * $cart->product_qty;
+                                $total +=  $sum * $cart->product_qty +  $ship_fee ;
                                 @endphp
+                                {{-- <td>{{ dd($sum) }}</td> --}}
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr class="bg-info">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>Shipping Fee:</td>
+                                    <td>&#8369;{{ $ship_fee }}</td>
                                     <td></td>
                                     <td> Grand Total: </td>
-                                    <input type="hidden" value="{{ $total }}" class="total_price" name="total_price">
-                                    <td><span>&#8369; {{ $total ?? "" }}</span></td>
+                                    <input type="text" value="{{ $ship_fee }}" class="shipping" name="shipping">
+                                    <input type="hidden" value="{{ $total}}" class="total_price" name="total_price">
+                                    <td colspan="2"><span>&#8369;{{ $total  ?? "" }}</span></td>
                                 </tr>
                                 <tr>
                                     <td colspan="6">
@@ -252,8 +258,8 @@ Checkout
             var city = $(".city").val();
             var country = $(".country").val();
             var postal_code = $(".postal_code").val();
+            var shipping_fee = $(".shipping").val();
             var total_price = $(".total_price").val();
-            
             $.ajax({
                 type: "POST",
                 url: "/place-order",
@@ -268,6 +274,7 @@ Checkout
                     "postal_code": postal_code,
                     "payment_mode": "Paid by Paypal",
                     "payment_id": details.id,
+                    "shipping_fee": shipping_fee,
                     "total_price": total_price,
                 },
                 success: function (response) {

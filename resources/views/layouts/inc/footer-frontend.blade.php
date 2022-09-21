@@ -43,10 +43,16 @@
             <!-- Grid column -->
             <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
               <h6 class="text-uppercase mb-4 font-weight-bold">
-                Helps
+                Quick Links
               </h6>
               <p>
                 <a class="text-white" href="!#">FQA</a>
+              </p>
+              <p>
+                <a class="text-white" href="{{ url('/login') }}">Login</a>
+              </p>
+              <p>
+                <a class="text-white" href="{{ url('/register') }}">Register</a>
               </p>
             </div>
   
@@ -77,9 +83,8 @@
               <!-- Copyright -->
               <div class="p-3">
                 © 2022 Copyright:
-                <a class="text-white" href="http:/127.0.0.1:8000/"
-                   >Milkteashop.com</a
-                  >
+                <a class="text-white" href="{{ url('/') }}"
+                   >Milkteashop.com</a>
               </div>
               <!-- Copyright -->
             </div>

@@ -78,4 +78,12 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/edit-bottle-size/{id}', [App\Http\Controllers\Admin\SizeController::class, 'edit']);
     Route::put('/admin/update-bottle-size/{id}', [App\Http\Controllers\Admin\SizeController::class, 'update']);
     Route::get('/admin/delete-bottle-size/{id}', [App\Http\Controllers\Admin\SizeController::class, 'destroy']);
+
+    // Shipping Fee
+    Route::get('/admin/shipping-fee', [App\Http\Controllers\Admin\ShippingFeeController::class, 'index']);
+    Route::get('/admin/add-shipping-fee', [App\Http\Controllers\Admin\ShippingFeeController::class, 'show']);
+    Route::post('/admin/store-shipping-fee', [App\Http\Controllers\Admin\ShippingFeeController::class, 'store']);
+    Route::get('/admin/edit-shipping-fee/{id}', [App\Http\Controllers\Admin\ShippingFeeController::class, 'edit']);
+    Route::put('/admin/update-shipping-fee/{id}', [App\Http\Controllers\Admin\ShippingFeeController::class, 'update']);
+    Route::get('/admin/delete-shipping-fee/{id}', [App\Http\Controllers\Admin\ShippingFeeController::class, 'destroy']);
 });
