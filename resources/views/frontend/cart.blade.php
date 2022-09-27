@@ -56,14 +56,17 @@ Cart
                     $sum_of_price_and_add_ons = $item->bottle_size + $item->addOns->price;
                     $total += $sum_of_price_and_add_ons * $item->product_qty;
                     @endphp
+                    @endforeach
                 </table>
+
             </div>
         </div>
+        @if ($total != NULL)
         <div class="card-footer ">
             Grand Total: <span>&#8369; {{ $total ?? "" }} </span> <a href="{{ url('/checkout') }}"
                 class="btn btn-warning btn-md float-end">Checkout</a>
         </div>
-        @endforeach
+        @endif
     </div>
 </div>
 @section('scripts')
