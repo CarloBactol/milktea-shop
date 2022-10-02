@@ -80,6 +80,11 @@ class DashboardController extends Controller
 
     public function generatePdf()
     {
+        $monthly_income = DB::table('orders')
+            ->whereMonth('created_at', Carbon::now()->format('m'))
+            ->where('status', '1')
+            ->sum('total_price');
+
         $orders = DB::table('orders')
             ->whereMonth('created_at', Carbon::now()->format('m'))
             ->where('status', '1')
@@ -94,7 +99,7 @@ class DashboardController extends Controller
         //     ->groupBy('month')
         //     ->orderBy('month')
         //     ->get();
-        $pdf = PDF::loadView('admin.pdf.index', compact('orders'));
+        $pdf = PDF::loadView('admin.pdf.index', compact('orders', 'monthly_income'));
         return $pdf->stream();
     }
 }

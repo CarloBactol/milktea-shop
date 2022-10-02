@@ -34,7 +34,7 @@
           <tr>
             <td colspan="5" style="text-align: center">Total Sales for the month of {{ date('F Y',
               strtotime($order->created_at)) }}</td>
-            <td colspan="1" style="text-align: center">&#8369;1222</td>
+            <td colspan="1" style="text-align: center">&#8369;{{ $monthly_income }}</td>
           </tr>
         </tfoot>
       </table>
