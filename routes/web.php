@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ShippingFeeController;
 use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\GetIpAddressController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,6 +27,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 */
 
 // Frontend
+Route::get('/ipaddress', [GetIpAddressController::class, 'index']);
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/view-product/{id}', [FrontendController::class, 'view_product']);
 Route::post('/add-to-cart',  [CartController::class, 'addCart']);
