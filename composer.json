@@ -16,7 +16,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
-        "mikehaertl/phpwkhtmltopdf": "^2.5"
+        "mikehaertl/phpwkhtmltopdf": "^2.5",
+        "stevebauman/location": "^6.5"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

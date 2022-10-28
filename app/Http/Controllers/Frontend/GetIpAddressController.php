@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Stevebauman\Location\Facades\Location;
 
 class GetIpAddressController extends Controller
 {
@@ -24,6 +25,10 @@ class GetIpAddressController extends Controller
             $ipaddress = $_SERVER['REMOTE_ADDR'];
         else
             $ipaddress = 'UNKNOWN';
-        return $ipaddress;
+
+
+        $ip = $ipaddress;
+        $data = Location::get($ip);
+        return $data;
     }
 }
