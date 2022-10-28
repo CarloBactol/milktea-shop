@@ -9,7 +9,7 @@ class GetIpAddressController extends Controller
 {
     public function index(Request $request)
     {
-        $ip = $request->ip();
+        $ip = $request->getClientIp();
         dd($ip);
     }
 }
