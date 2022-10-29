@@ -151,10 +151,10 @@ Checkout
 
                     </div>
                 </div>
-                <div class="card" id="googleMap" style="max-width:100%; min-height: 300px">
+                <div class="card mt-4 mb-4" id="googleMap" style="max-width:100%; min-height: 300px">
 
                 </div>
-                <div id="output">
+                <div id="output" class="my-3">
 
                 </div>
 
@@ -350,7 +350,7 @@ Checkout
     
                 //Get distance and time
                 const output = document.querySelector('#output');
-                output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("from").value + ".<br />To: " + document.getElementById("to").value + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
+                output.innerHTML = "<div class='alert-info'>From Shop: " + document.getElementById("to").value.toUpperCase() + ".<br />To Customer: " + document.getElementById("from").value.toUpperCase() + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
     
                 //display route
                 directionsDisplay.setDirections(result);
