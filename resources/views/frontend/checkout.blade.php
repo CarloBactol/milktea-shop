@@ -3,7 +3,7 @@
 @section('title')
 Checkout
 @endsection
-
+{{ dd($getIp) }}
 @section('content')
 @php $ship_fee = 0; @endphp
 @foreach ($shipping_fees as $ship)
