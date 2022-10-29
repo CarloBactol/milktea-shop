@@ -30,7 +30,7 @@ class GetIpAddressController extends Controller
         $ip = $ipaddress;
         // $data = Location::get($ip);
         // return view('frontend.mylocation', compact('data'));
-        $locationData = Location::get('https://' . $request->ip($ip)); // https or http according to your necessary.
+        $locationData = Location::get($ip); // https or http according to your necessary.
 
         return view('frontend.mylocation', compact('locationData'));
     }
