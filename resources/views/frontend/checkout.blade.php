@@ -7,8 +7,9 @@ Checkout
 @section('content')
 @php $ship_fee = 0; @endphp
 @foreach ($shipping_fees as $ship)
-    <input type="hidden" value="{{  $ship_fee += $ship_fee + $ship->shipping; }}">
+<input type="hidden" value="{{  $ship_fee += $ship_fee + $ship->shipping }}">
 @endforeach
+
 <div class="container my-4">
     <br><br>
     <form action="{{ url('/place-order') }}" method="POST" enctype="multipart/form-data">
@@ -89,9 +90,10 @@ Checkout
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="adrress">Adrress</label>
-                                    <input type="text" name="address"
+                                    <input type="text" name="address" id="from" onchange="calcRoute();"
                                         class="form-control address @error('address') is-invalid @enderror"
                                         value="{{  Auth::user()->address }}" placeholder="Enter address">
+                                    <input type="hidden" id="to" value="Road 1 Talipapa, Caloocan City, Philippines">
                                     <small class="text-danger address_err"></small>
                                     @error('address')
                                     <span class="invalid-feedback" role="alert">
@@ -149,6 +151,13 @@ Checkout
 
                     </div>
                 </div>
+                <div class="card" id="googleMap" style="max-width:100%; min-height: 300px">
+
+                </div>
+                <div id="output">
+
+                </div>
+
             </div>
             <div class="col-md-6">
                 <div class="card">
@@ -176,12 +185,13 @@ Checkout
                                 <tr>
                                     <td>
                                         @if ($cart->product->image == 'NULL')
-                                        <img src="{{ asset('assets/products/1.jpg') }}" alt="" height="30px" width="30px" class="rounded-circle">
+                                        <img src="{{ asset('assets/products/1.jpg') }}" alt="" height="30px"
+                                            width="30px" class="rounded-circle">
                                         @else
                                         <img src="{{ asset('assets/products/'. $cart->product->image) }}" alt=""
                                             height="30px" width="30px" class="rounded-circle">
                                         @endif
-            
+
                                     </td>
                                     <td>{{ $cart->product->name}}</td>
                                     <td>{{ $cart->sugar_level}}%</td>
@@ -191,10 +201,12 @@ Checkout
                                 </tr>
 
                                 @php
+                                $total_wfee = 0;
                                 $sum = $cart->bottle_size + $cart->addOns->price;
-                                $total +=  $sum * $cart->product_qty +  $ship_fee ;
+                                $total = $sum * $cart->product_qty;
+                                $total_wfee += $total + $ship_fee;
                                 @endphp
-                                {{-- <td>{{ dd($sum) }}</td> --}}
+                                {{-- {{ dd($cart->addOns->price); }} --}}
                                 @endforeach
                             </tbody>
                             <tfoot>
@@ -202,10 +214,12 @@ Checkout
                                     <td>Shipping Fee:</td>
                                     <td>&#8369;{{ $ship_fee }}</td>
                                     <td></td>
-                                    <td> Grand Total: </td>
-                                    <input type="text" value="{{ $ship_fee }}" class="shipping" name="shipping">
-                                    <input type="hidden" value="{{ $total}}" class="total_price" name="total_price">
-                                    <td colspan="2"><span>&#8369;{{ $total  ?? "" }}</span></td>
+                                    <td class="float-end"> Grand Total: </td>
+                                    <input type="hidden" value="{{ $ship_fee }}" class="shipping" name="shipping">
+                                    <input type="hidden" value="{{ $total + $ship_fee}}" class="total_price"
+                                        name="total_price">
+                                    <td colspan="2"><span class="float-end">&#8369;{{ $total + $ship_fee ?? "" }}</span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="6">
@@ -239,7 +253,7 @@ Checkout
           return actions.order.create({
             purchase_units: [{
               amount: {
-                value: '{{ $total }}'
+                value: '{{ $total + $ship_fee }}'
               }
             }]
           });
@@ -258,7 +272,7 @@ Checkout
             var city = $(".city").val();
             var country = $(".country").val();
             var postal_code = $(".postal_code").val();
-            var shipping_fee = $(".shipping").val();
+            var shipping = $(".shipping").val();
             var total_price = $(".total_price").val();
             $.ajax({
                 type: "POST",
@@ -274,7 +288,7 @@ Checkout
                     "postal_code": postal_code,
                     "payment_mode": "Paid by Paypal",
                     "payment_id": details.id,
-                    "shipping_fee": shipping_fee,
+                    "shipping": shipping,
                     "total_price": total_price,
                 },
                 success: function (response) {
@@ -293,5 +307,77 @@ Checkout
       // This function displays Smart Payment Buttons on your web page. 
       window.paypal.Buttons(options).render('#paypal-button-container');
     });
+</script>
+
+{{-- MAPS --}}
+<script>
+    //set map options
+    var myLatLng = { lat: 11.112666, lng: 122.509476 };
+    var mapOptions = {
+        center: myLatLng,
+        zoom: 5,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        types: ['address']
+    
+    };
+    
+    //create map
+    var map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+    
+    //create a DirectionsService object to use the route method and get a result for our request
+    var directionsService = new google.maps.DirectionsService();
+    
+    //create a DirectionsRenderer object which we will use to display the route
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    
+    //bind the DirectionsRenderer to the map
+    directionsDisplay.setMap(map);
+    
+    
+    //define calcRoute function
+    function calcRoute() {
+        //create request
+        var request = {
+            origin: document.getElementById("from").value,
+            destination: document.getElementById("to").value,
+            travelMode: google.maps.TravelMode.DRIVING, //WALKING, BYCYCLING, TRANSIT
+            unitSystem: google.maps.UnitSystem.IMPERIAL
+        }
+    
+        //pass the request to the route method
+        directionsService.route(request, function (result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+    
+                //Get distance and time
+                const output = document.querySelector('#output');
+                output.innerHTML = "<div class='alert-info'>From: " + document.getElementById("from").value + ".<br />To: " + document.getElementById("to").value + ".<br /> Driving distance <i class='fas fa-road'></i> : " + result.routes[0].legs[0].distance.text + ".<br />Duration <i class='fas fa-hourglass-start'></i> : " + result.routes[0].legs[0].duration.text + ".</div>";
+    
+                //display route
+                directionsDisplay.setDirections(result);
+            } else {
+                //delete route from map
+                directionsDisplay.setDirections({ routes: [] });
+                //center map in London
+                map.setCenter(myLatLng);
+    
+                //show error message
+                output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
+            }
+        });
+    
+    }
+    
+    
+    
+    //create autocomplete objects for all inputs
+    var options = {
+        types: ['(cities)']
+    }
+    
+    var input1 = document.getElementById("from");
+    var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
+    
+    var input2 = document.getElementById("to");
+    var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
 </script>
 @endsection

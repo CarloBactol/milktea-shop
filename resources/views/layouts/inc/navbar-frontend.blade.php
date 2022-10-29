@@ -52,7 +52,6 @@
               class="badge bg-success cart-count">0</span>
           </a>
         </li>
-
       </ul>
     </div>
   </div>

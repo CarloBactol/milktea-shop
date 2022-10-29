@@ -47,7 +47,7 @@ class CheckoutController extends Controller
         $order->postal_code = $request->input('postal_code');
         $order->tracking_no = time() . rand(1000, 9999);
 
-        $order->shipping = $request->input('shipping_fee');
+        $order->shipping = $request->input('shipping');
         $order->payment_mode = $request->input('payment_mode');
         $order->payment_id = $request->input('payment_id');
 

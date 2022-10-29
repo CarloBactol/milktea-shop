@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,16 +33,16 @@
 
     <!-- Custom styles-->
     <link href="{{ asset('frontend/css/custom.css') }}" rel="stylesheet">
-    
+
     @yield('dataTable-css')
 
 </head>
 
 <body id="page-top">
-     <!-- Navbar-->
+    <!-- Navbar-->
     @include('layouts.inc.navbar-frontend')
     <div id="wrapper mt-5">
-          <!-- Main Content-->
+        <!-- Main Content-->
         @yield('content')
     </div>
 
@@ -63,15 +62,14 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     {{-- <a class="btn btn-primary" href="login.html">Logout</a> --}}
-                    <a class="btn btn-primary" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
+                    <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
                                   document.getElementById('logout-form').submit();">
-                     {{ __('Logout') }}
-                 </a>
+                        {{ __('Logout') }}
+                    </a>
 
-                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                     @csrf
-                 </form>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>
@@ -92,16 +90,19 @@
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiLMZ3-Tmq-6e0e8CZfXePdNEWyTC9OlY&libraries=places">
+    </script>
+
     @yield('scripts')
-    
-    {{--  swallalert message --}}
+
+    {{-- swallalert message --}}
     @if (session('status'))
-        <script>
-            swal({
+    <script>
+        swal({
                 title: "{{ session('status') }}", 
                 icon: 'success'
             });
-        </script>
+    </script>
     @endif
 
 </body>
