@@ -1,1 +1,1 @@
-{{dd($getIp) }}
+{{($getIp->country) }}

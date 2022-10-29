@@ -92,7 +92,7 @@ Checkout
                                     <label for="adrress">Adrress</label>
                                     <input type="text" name="address" id="from" onchange="calcRoute();"
                                         class="form-control address @error('address') is-invalid @enderror"
-                                        value="{{  Auth::user()->address }}" placeholder="Enter address">
+                                        value="{{ $getIp->city}}" placeholder="Enter address">
                                     <input type="hidden" id="to" value="Road 1 Talipapa, Caloocan City, Philippines">
                                     <small class="text-danger address_err"></small>
                                     @error('address')
@@ -107,7 +107,7 @@ Checkout
                                     <label for="city">City</label>
                                     <input type="text" name="city"
                                         class="form-control city  @error('city') is-invalid @enderror"
-                                        value="{{  Auth::user()->city }}" placeholder="Enter city">
+                                        value="{{  $getIp->city}}" placeholder="Enter city">
                                     <small class="text-danger city_err"></small>
                                     @error('city')
                                     <span class="invalid-feedback" role="alert">
@@ -124,7 +124,7 @@ Checkout
                                     <label for="country">Country</label>
                                     <input type="text" name="country"
                                         class="form-control  country @error('country') is-invalid @enderror"
-                                        value="{{  Auth::user()->country  }}" placeholder="Enter country">
+                                        value="{{ $getIp->country   }}" placeholder="Enter country">
                                     <small class="text-danger country_err"></small>
                                     @error('country')
                                     <span class="invalid-feedback" role="alert">

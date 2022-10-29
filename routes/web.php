@@ -28,6 +28,7 @@ use App\Http\Controllers\Frontend\GetIpAddressController;
 
 // Frontend
 Route::get('/ipaddress', [GetIpAddressController::class, 'index']);
+
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/view-product/{id}', [FrontendController::class, 'view_product']);
 Route::post('/add-to-cart',  [CartController::class, 'addCart']);

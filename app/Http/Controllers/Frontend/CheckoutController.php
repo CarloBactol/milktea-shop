@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\OrderItem;
 use App\Models\ShippingFee;
 use Illuminate\Http\Request;
+use Torann\GeoIP\Facades\GeoIP;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,9 +17,30 @@ class CheckoutController extends Controller
 {
     public function index()
     {
+        // IP ADDRESS 
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if (isset($_SERVER['HTTP_X_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if (isset($_SERVER['HTTP_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if (isset($_SERVER['REMOTE_ADDR']))
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = 'UNKNOWN';
+
+        $ip = $ipaddress;
+        $getIp = GeoIP::getLocation($ip);
+
+
         $shipping_fees = ShippingFee::all();
         $carts = Cart::where('user_id', Auth::id())->get();
-        return view('frontend.checkout', compact('carts', 'shipping_fees'));
+        return view('frontend.checkout', compact('carts', 'shipping_fees', 'getIp'));
     }
 
     public function place_order(Request $request)
