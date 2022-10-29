@@ -167,6 +167,7 @@ return [
          */
         Barryvdh\Snappy\ServiceProvider::class,
         Stevebauman\Location\LocationServiceProvider::class,
+        \Torann\GeoIP\GeoIPServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -232,6 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Location' => 'Stevebauman\Location\Facades\Location',
+        'geoip' => \Torann\GeoIP\Facades\GeoIP::class,
     ],
 
 ];

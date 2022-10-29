@@ -1,1 +1,1 @@
-{{dd($locationData) }}
+{{dd($getIp) }}

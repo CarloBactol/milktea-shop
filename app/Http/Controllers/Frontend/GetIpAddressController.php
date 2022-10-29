@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Frontend;
 
+
+use Torann\GeoIP\Facades\GeoIP;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Stevebauman\Location\Facades\Location;
@@ -28,10 +30,8 @@ class GetIpAddressController extends Controller
 
 
         $ip = $ipaddress;
-        // $data = Location::get($ip);
-        // return view('frontend.mylocation', compact('data'));
-        $locationData = Location::get($ip); // https or http according to your necessary.
+        $getIp = GeoIP::getLocation($ip);
 
-        return view('frontend.mylocation', compact('locationData'));
+        return view('frontend.mylocation', compact('getIp'));
     }
 }
