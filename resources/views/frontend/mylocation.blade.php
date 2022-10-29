@@ -1,1 +1,1 @@
-{{print_r($data) }}
+{{dd($locationData) }}
