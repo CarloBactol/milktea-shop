@@ -7,6 +7,7 @@ use App\Models\Size;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\AddOn;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -14,17 +15,17 @@ class CartController extends Controller
     public function addCart(Request $request)
     {
         $product_id = $request->input('product_id');
-        $bottle_size = $request->input('bottle_size');;
+        $bottle_size_id = $request->input('bottle_size');;
         $sugar_level = $request->input('sugar_level');
-        $add_ons_id = $request->input('add_ons_id');
+        $addons = $request->input('addons');
         $product_qty = $request->input('product_qty');
 
         $cartItem = new Cart();
         $cartItem->product_id = $product_id;
         $cartItem->user_id = Auth::id();
-        $cartItem->bottle_size = $bottle_size;
+        $cartItem->bottle_size_id = $bottle_size_id;
         $cartItem->sugar_level = $sugar_level;
-        $cartItem->add_ons_id = $add_ons_id;
+        $cartItem->add_ons_id = json_encode($addons);
         $cartItem->product_qty = $product_qty;
         $cartItem->save();
         return response()->json(['status' => " Added to cart"]);
@@ -49,6 +50,7 @@ class CartController extends Controller
 
     public function cart()
     {
+        $addons = AddOn::all();
         // remove out of stock items
         $old_cart_items = Cart::where('user_id', Auth::id())->get();
         foreach ($old_cart_items as $item) {
@@ -59,7 +61,7 @@ class CartController extends Controller
         }
 
         $cart_items = Cart::where('user_id', Auth::id())->get();
-        return view('frontend.cart', compact('cart_items'));
+        return view('frontend.cart', compact('cart_items', 'addons'));
     }
 
     public function delete_cart(Request $request)

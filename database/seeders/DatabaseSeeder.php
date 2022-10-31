@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(BotleSizeSeeder::class);
         $this->call(AddOnsSeeder::class);
         $this->call(ShippingFeeSeeder::class);
+        $this->call(DistanceSeeder::class);
     }
 }

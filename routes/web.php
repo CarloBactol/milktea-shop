@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ShippingFeeController;
 use App\Http\Controllers\Admin\UserProfileController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\DistanceController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\GetIpAddressController;
 /*
@@ -47,9 +48,13 @@ Route::middleware('auth')->group(function () {
     // cart management
     Route::get('/cart', [CartController::class, 'cart']);
     Route::get('/checkout', [CheckoutController::class, 'index']);
+    Route::get('/load-shipping-data', [CheckoutController::class, 'load_ship']);
+    Route::get('/load-grand-total-data', [CheckoutController::class, 'load_total']);
     Route::post('/place-order', [CheckoutController::class, 'place_order']);
     Route::get('/my-order', [UserController::class, 'my_order']);
     Route::get('/view-order/{id}', [UserController::class, 'view_order']);
+
+    Route::post('/distance', [DistanceController::class, 'index']);
 });
 
 

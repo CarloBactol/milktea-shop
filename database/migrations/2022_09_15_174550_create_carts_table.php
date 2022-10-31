@@ -17,7 +17,7 @@ class CreateCartsTable extends Migration
             $table->id();
             $table->string('sugar_level');
             $table->integer('product_qty');
-            $table->string('bottle_size');
+            $table->integer('bottle_size_id')->default(0);
             $table->string('add_ons_id');
             $table->string('user_id');
             $table->integer('product_id');

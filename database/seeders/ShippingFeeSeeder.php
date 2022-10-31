@@ -16,6 +16,7 @@ class ShippingFeeSeeder extends Seeder
     {
         ShippingFee::create([
             'shipping' => '100',
+            'user_id' => '1'
         ]);
     }
 }

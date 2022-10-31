@@ -9,7 +9,12 @@
 </head>
 
 <body>
+  @php
 
+  if(isset($_GET['distance'])){
+  echo $_GET['distance'];
+  }
+  @endphp
 
   <div class="wrapper">
     <div id="warpper">
@@ -18,6 +23,9 @@
     <div id="map" style="width:100%; min-height:40rem">
 
     </div>
+
+    <input type="radio" name="a"><label for="a">A</label>
+    <input type="radio" name="b"><label for="a">b</label>
 
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiLMZ3-Tmq-6e0e8CZfXePdNEWyTC9OlY&libraries=places">

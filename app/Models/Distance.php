@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ShippingFee extends Model
+class Distance extends Model
 {
     use HasFactory;
-    protected $table = 'shipping_fees';
-    protected $fillable = ['shipping', 'user_id'];
+    protected $table = 'distances';
+    protected $fillable = ['name', 'user_id'];
 }

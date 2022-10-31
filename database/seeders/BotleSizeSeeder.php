@@ -27,5 +27,11 @@ class BotleSizeSeeder extends Seeder
                 'price' => '120'
             ],
         );
+        Size::create(
+            [
+                'size' => '2',
+                'price' => '200'
+            ],
+        );
     }
 }

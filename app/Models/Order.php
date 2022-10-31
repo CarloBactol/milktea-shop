@@ -23,6 +23,7 @@ class Order extends Model
         'total_price',
         'shipping',
         'message',
+        'distance',
         'tracking_no',
         'payment_mode',
         'payment_id',

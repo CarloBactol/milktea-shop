@@ -20,7 +20,6 @@ class CreateOrderItemsTable extends Migration
             $table->string('sugar_level');
             $table->string('add_ons');
             $table->string('qty');
-            $table->string('price');
             $table->timestamps();
         });
     }

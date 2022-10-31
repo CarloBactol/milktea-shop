@@ -37,10 +37,15 @@ $(document).ready(function () {
             .closest("#product_data")
             .find("#sugar_level")
             .val(); // get sugar_level
-        var add_ons_id = $(this)
-            .closest("#product_data")
-            .find("#add_ons_id")
-            .val(); // get add_ons
+        // var add_ons_id = $(this)
+        //     .closest("#product_data")
+        //     .find("#add_ons_id")
+        //     .val(); // get add_ons
+        var addons = $('input[name="addons[]"]:checked')
+            .map(function () {
+                return $(this).val();
+            })
+            .get();
         var product_qty = $(this)
             .closest("#product_data")
             .find("#product_qty")
@@ -61,7 +66,7 @@ $(document).ready(function () {
                 product_id: product_id,
                 bottle_size: bottle_size,
                 sugar_level: sugar_level,
-                add_ons_id: add_ons_id,
+                addons: addons,
                 product_qty: product_qty,
             },
             complete: function (xmlHttp) {
