@@ -75,7 +75,7 @@ Shop
                     if(products.length > 0){
                         //loop 
                         for (let i = 0; i < products.length; i++) {
-                                let img = '<img class="card-img-top" src="assets/products/'+products[i]['image'] +'" height="150px" max-width="100%" alt=" '+products[i]['name']+' "/>';
+                                let img = '<img class="card-img-top" src="assets/products/'+products[i]['image'] +'" height="150px" max-width="100%" alt=" '+products[i]['name']+' " id="shop_image"/>';
                                 let static_img  = '<img class="card-img-top" src="assets/products/1.jpg" height="150px" max-width="100%" alt="milktea"/>';
                                 const str = products[i]['description'];
                                 const num = 50;
