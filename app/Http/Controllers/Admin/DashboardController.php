@@ -82,12 +82,12 @@ class DashboardController extends Controller
     {
         $monthly_income = DB::table('orders')
             ->whereMonth('created_at', Carbon::now()->format('m'))
-            ->where('status', '1')
+            ->where('status', '3')
             ->sum('total_price');
 
         $orders = DB::table('orders')
             ->whereMonth('created_at', Carbon::now()->format('m'))
-            ->where('status', '1')
+            ->where('status', '3')
             ->get();
 
         // $orders =  Order::select(

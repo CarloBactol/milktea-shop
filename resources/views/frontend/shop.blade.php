@@ -9,7 +9,7 @@ Shop
     <br>
     <br>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 mb-3">
             <div class="card">
                 <div class="card-header">
                     <h2>Filter Products</h2>
@@ -30,7 +30,8 @@ Shop
                 @foreach ($products as $item)
                 <div class="col-md-3">
                     <div class="card mb-3">
-                        <img src="{{ asset('assets/products/'.$item->image) }}" alt="{{ $item->name }}" height="150px">
+                        <img src="{{ asset('assets/products/'.$item->image) }}" alt="{{ $item->name }}" height="150px"
+                            id="shop_image">
                         <div class="card-body">
                             <h6>{{ $item->name }}</h6>
                         </div>

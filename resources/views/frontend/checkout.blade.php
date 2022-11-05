@@ -35,7 +35,7 @@ $route = 0;
                                     <input type="text" name="address" id="from" onchange="calcRoute();"
                                         class="form-control address @error('address') is-invalid @enderror"
                                         value="{{ Auth::user()->address }}" placeholder="Enter address">
-                                    <input type="hidden" id="to" value="Road 1 Talipapa, Caloocan City, Philippines">
+                                    <input type="hidden" id="to" value="San Leonardo, Nueva Ecija, Philippines">
                                     <small class="text-danger address_err"></small>
                                     @error('address')
                                     <span class="invalid-feedback" role="alert">

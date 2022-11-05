@@ -37,10 +37,6 @@ $(document).ready(function () {
             .closest("#product_data")
             .find("#sugar_level")
             .val(); // get sugar_level
-        // var add_ons_id = $(this)
-        //     .closest("#product_data")
-        //     .find("#add_ons_id")
-        //     .val(); // get add_ons
         var addons = $('input[name="addons[]"]:checked')
             .map(function () {
                 return $(this).val();
@@ -93,22 +89,20 @@ $(document).ready(function () {
             },
         });
 
-        var product_id = $(this)
-            .closest(".product_data")
-            .find(".product_id")
-            .val();
+        var cart_id = $("#cart_id").val();
         $.ajax({
             type: "POST",
             url: "delete-cart-item",
             data: {
-                product_id: product_id,
+                product_id: cart_id,
             },
             success: function (response) {
-                window.location.reload();
                 swal({
                     title: response.status,
-                    icon: "success",
-                    timer: 4000,
+                    icon: "error",
+                    timer: 2000,
+                }).then(function () {
+                    window.location.href = "/cart";
                 });
             },
         });

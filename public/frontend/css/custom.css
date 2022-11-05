@@ -5,3 +5,10 @@ body {
     height: 100vh !important;
     width: 100% !important;
 }
+
+@media screen and (max-width: 767px) {
+    img#shop_image {
+        width: auto !important;
+        height: 300px !important;
+    }
+}

@@ -141,7 +141,7 @@ class CheckoutController extends Controller
                     $driving_fee->shipping = $total;
                     $driving_fee->email = Auth::user()->email;
                     $driving_fee->update();
-                } else {
+                } else if ($whole_number == 0) {
                     $total = 0;
                     $driving_fee = ShippingFee::where('user_id', Auth::id())->first();
                     $driving_fee->shipping = $total;

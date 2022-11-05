@@ -33,8 +33,14 @@
 
     <!-- Custom styles-->
     <link href="{{ asset('frontend/css/custom.css') }}" rel="stylesheet">
+    @yield('css')
+    {{-- CSS DATATABLE --}}
+    {{--
+    <link rel="stylesheet" href="{{ asset('admin/css/datatable.css') }}"> --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.8/css/rowReorder.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css">
 
-    @yield('dataTable-css')
 
 </head>
 
@@ -80,6 +86,7 @@
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
 
+
     {{-- Custom JS --}}
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
     <script src="{{ asset('frontend/js/checkout.js') }}"></script>
@@ -92,10 +99,7 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiLMZ3-Tmq-6e0e8CZfXePdNEWyTC9OlY&libraries=places">
     </script>
-
     @yield('scripts')
-
-
 
     {{-- swallalert message --}}
     @if (session('status'))

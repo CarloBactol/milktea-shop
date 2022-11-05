@@ -3,7 +3,28 @@
 @section('title')
 Home
 @endsection
+@section('css')
+<style>
+  #traditional {
+    background: url('../frontend/image/traditional-milktea.jpg');
+    background-position: cover !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    width: 100% !important;
+    height: 80vh !important;
+    object-fit: contain;
+    min-height: 100%;
+    z-index: 100;
+  }
 
+  @media screen and (max-width: 768px) {
+    #traditional {
+      max-width: auto !important;
+      height: 300px !important;
+    }
+  }
+</style>
+@endsection
 
 @section('content')
 
@@ -36,6 +57,9 @@ Home
     </div>
   </div>
 </div>
+<div class="container" id="traditional" style="height: 700px; margin-bottom: 20px;">
+</div>
+
 <!-- Footer-->
 @include('layouts.inc.footer-frontend')
 

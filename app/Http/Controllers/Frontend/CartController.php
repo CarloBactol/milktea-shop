@@ -70,6 +70,7 @@ class CartController extends Controller
 
     public function delete_cart(Request $request)
     {
+
         if (Auth::check()) {
             $product_id = $request->input('product_id');
             if (Cart::where('product_id', $product_id)->where('user_id', Auth::id())->exists()) {
