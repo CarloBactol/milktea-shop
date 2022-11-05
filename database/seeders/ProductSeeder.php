@@ -19,11 +19,11 @@ class ProductSeeder extends Seeder
                 'name' => 'The Panda Tea',
                 'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae officiis temporibus ducimus totam autem asperiores vitae nulla quisquam obcaecati repellat.',
                 'size_id' =>  '1',
+                'category_id' => rand(1, 3),
                 'status' =>  '1',
                 'popular' =>  '1',
                 'size_id' =>  '1',
-                'qty' => '10',
-                'image' => 'NULL',
+                'image' => '1.jpg',
             ],
         );
 
@@ -32,11 +32,11 @@ class ProductSeeder extends Seeder
                 'name' => 'Hubble Bubble Tea',
                 'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae officiis temporibus ducimus totam autem asperiores vitae nulla quisquam obcaecati repellat.',
                 'size_id' =>  '1',
+                'category_id' => rand(1, 3),
                 'status' =>  '1',
                 'popular' =>  '1',
                 'size_id' =>  '1',
-                'qty' => '20',
-                'image' => 'NULL',
+                'image' => '1.jpg',
             ],
         );
 
@@ -45,11 +45,11 @@ class ProductSeeder extends Seeder
                 'name' => 'Infinitea',
                 'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae officiis temporibus ducimus totam autem asperiores vitae nulla quisquam obcaecati repellat.',
                 'size_id' =>  '1',
+                'category_id' => rand(1, 3),
                 'status' =>  '1',
                 'popular' =>  '1',
                 'size_id' =>  '1',
-                'qty' => '20',
-                'image' => 'NULL',
+                'image' => '1.jpg',
             ],
         );
 
@@ -58,11 +58,11 @@ class ProductSeeder extends Seeder
                 'name' => 'Pearl’s Finest Teas',
                 'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae officiis temporibus ducimus totam autem asperiores vitae nulla quisquam obcaecati repellat.',
                 'size_id' =>  '1',
+                'category_id' => rand(1, 3),
                 'status' =>  '1',
                 'popular' =>  '1',
                 'size_id' =>  '1',
-                'qty' => '20',
-                'image' => 'NULL',
+                'image' => '1.jpg',
             ],
         );
     }

@@ -9,5 +9,5 @@ class AddOn extends Model
 {
     use HasFactory;
     protected $table = 'add_ons';
-    protected $fillable = ['name', 'price'];
+    protected $fillable = ['name'];
 }

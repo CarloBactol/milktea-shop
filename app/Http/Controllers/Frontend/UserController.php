@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Size;
 use App\Models\AddOn;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class UserController extends Controller
     public function view_order($id)
     {
         $addOns = AddOn::all();
+        $reg_size = Size::all();
         $orders = Order::findorfail($id);
-        return view('frontend.view-order', compact('orders', 'addOns'));
+        return view('frontend.view-order', compact('orders', 'addOns', 'reg_size'));
     }
 }

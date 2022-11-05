@@ -95,6 +95,8 @@
 
     @yield('scripts')
 
+
+
     {{-- swallalert message --}}
     @if (session('status'))
     <script>

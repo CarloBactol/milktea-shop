@@ -17,6 +17,7 @@ class CreateShippingFeesTable extends Migration
             $table->id();
             $table->decimal('shipping');
             $table->integer('user_id');
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Distance;
 use App\Models\ShippingFee;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ShippingFeeController extends Controller
 {
@@ -49,7 +50,7 @@ class ShippingFeeController extends Controller
 
     public function destroy($id)
     {
-        $shipping_fee = ShippingFee::findorfail($id);
+        $shipping_fee = Distance::findorfail($id);
         $shipping_fee->delete();
         return redirect('/admin/shipping-fee')->with('status', 'Deleted Successfully!');
     }

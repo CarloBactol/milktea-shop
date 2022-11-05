@@ -18,19 +18,19 @@ class BotleSizeSeeder extends Seeder
         Size::create(
             [
                 'size' => '0',
-                'price' => '90'
+                'price' => '38'
             ],
         );
         Size::create(
             [
                 'size' => '1',
-                'price' => '120'
+                'price' => '48'
             ],
         );
         Size::create(
             [
                 'size' => '2',
-                'price' => '200'
+                'price' => '58'
             ],
         );
     }

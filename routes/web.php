@@ -3,9 +3,12 @@
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MileFeeController;
+use App\Http\Controllers\PremiumController;
+use App\Http\Controllers\RegularController;
 use App\Http\Controllers\Admin\SizeController;
 use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\AddOnsController;
+use App\Http\Controllers\PremiumSizeController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\UserController;
@@ -49,12 +52,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'cart']);
     Route::get('/checkout', [CheckoutController::class, 'index']);
     Route::get('/load-shipping-data', [CheckoutController::class, 'load_ship']);
-    Route::get('/load-grand-total-data', [CheckoutController::class, 'load_total']);
     Route::post('/place-order', [CheckoutController::class, 'place_order']);
     Route::get('/my-order', [UserController::class, 'my_order']);
     Route::get('/view-order/{id}', [UserController::class, 'view_order']);
 
     Route::post('/distance', [DistanceController::class, 'index']);
+    // address
+    Route::post('/address', [CheckoutController::class, 'address']);
+    // confirmation 
+    Route::get('/confirmation', [CheckoutController::class, 'confirmation']);
 });
 
 
@@ -77,19 +83,29 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/delete-product/{id}', [ProductController::class, 'destroy']);
 
     // orders management
+    // Route::resource('orders', OrderController::class);
     Route::get('/admin/orders-list', [OrderController::class, 'index']);
     Route::get('/admin/view-order/{id}', [OrderController::class, 'view_order']);
     Route::put('/admin/update-order/{id}', [OrderController::class, 'update_order']);
     Route::get('/admin/order-history', [OrderController::class, 'order_history']);
     Route::get('/admin/delete-order/{id}', [OrderController::class, 'delete_order']);
 
-    // addOns management
-    Route::get('/admin/sinker-list', [AddOnsController::class, 'index']);
-    Route::get('/admin/add-sinker', [AddOnsController::class, 'show']);
-    Route::post('/admin/store-sinker', [AddOnsController::class, 'store']);
-    Route::get('/admin/edit-sinker/{id}', [AddOnsController::class, 'edit']);
-    Route::put('/admin/update-sinker/{id}', [AddOnsController::class, 'update']);
-    Route::get('/admin/delete-sinker/{id}', [AddOnsController::class, 'destroy']);
+
+    /**
+     * REGULAR ADD ONS CONTROLLER 
+     */
+    Route::resource('regulars', RegularController::class);
+
+    /**
+     * PREMIUM ADDONS CONTROLLER 
+     */
+    Route::resource('premiums', PremiumController::class);
+
+    /**
+     * PREMIUM SIZE CONTROLLER 
+     */
+    Route::resource('premium_sizes', PremiumSizeController::class);
+
 
     // Bottle Size management
     Route::get('/admin/bottle-size', [SizeController::class, 'index']);
@@ -106,4 +122,9 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/admin/edit-shipping-fee/{id}', [ShippingFeeController::class, 'edit']);
     Route::put('/admin/update-shipping-fee/{id}', [ShippingFeeController::class, 'update']);
     Route::get('/admin/delete-shipping-fee/{id}', [ShippingFeeController::class, 'destroy']);
+
+    /**
+     * MILES FEE CONTROLLER 
+     */
+    Route::resource('mile_fees', MileFeeController::class);
 });

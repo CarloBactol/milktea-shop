@@ -14,6 +14,10 @@ class CartController extends Controller
 {
     public function addCart(Request $request)
     {
+        $this->validate($request, [
+            'addons' => 'required'
+        ]);
+
         $product_id = $request->input('product_id');
         $bottle_size_id = $request->input('bottle_size');;
         $sugar_level = $request->input('sugar_level');
@@ -54,10 +58,10 @@ class CartController extends Controller
         // remove out of stock items
         $old_cart_items = Cart::where('user_id', Auth::id())->get();
         foreach ($old_cart_items as $item) {
-            if (!Product::where('id', $item->product_id)->where('qty', '>=', $item->product_qty)->exists()) {
-                $removeItem = Cart::where('product_id', $item->product_id)->where('user_id', Auth::id())->first();
-                $removeItem->delete();
-            }
+            // if (!Product::where('id', $item->product_id)->where('qty', '>=', $item->product_qty)->exists()) {
+            //     $removeItem = Cart::where('product_id', $item->product_id)->where('user_id', Auth::id())->first();
+            //     $removeItem->delete();
+            // }
         }
 
         $cart_items = Cart::where('user_id', Auth::id())->get();

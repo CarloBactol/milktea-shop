@@ -5,9 +5,10 @@ View Order
 @endsection
 
 @section('content')
-<div class="container my-4">
+<div class="container-fluid">
+    <br>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <br>
             <br>
             <div class="card">
@@ -50,7 +51,7 @@ View Order
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-8">
             <br>
             <br>
             <div class="card">
@@ -66,6 +67,8 @@ View Order
                                     <td>Name</td>
                                     <td>Sugar</td>
                                     <td>Addons</td>
+                                    <td>Additional Fee</td>
+                                    <td>Size</td>
                                     <td>Quantity</td>
                                     <td>Price</td>
                                 </tr>
@@ -85,16 +88,44 @@ View Order
 
                                 <td>{{ $order->product->name }}</td>
                                 <td>{{ $order->sugar_level }}%</td>
-                                @if (Auth::check())
-                                @forelse ($addOns as $add_ons)
-                                @if ($order->add_ons == $add_ons->id )
-                                <td>&#8369;{{ $add_ons->price }} {{ $add_ons->name ?? "" }}</td>
-                                @endif
-                                @empty
-                                @endforelse
-                                @endif
-                                <td>{{ $order->qty }} PCS</td>
-                                <td>&#8369;{{ $order->price }}</td>
+                                <td>
+                                    @php
+                                    $order_addons = json_decode($order->add_ons);
+                                    $tota_fee_addons = count($order_addons) * 10;
+                                    @endphp
+                                    {{-- loops the data from order_addons --}}
+                                    @foreach ($order_addons as $decode_addons)
+                                    {{-- check if there is addons --}}
+                                    @if ($order_addons > 0)
+                                    @foreach ($addOns as $table_addons)
+                                    {{ $decode_addons == $table_addons->id ? "$table_addons->name" : ""}}
+                                    @endforeach
+                                    @endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    &#8369;{{ $tota_fee_addons }}
+                                </td>
+
+                                <td>
+                                    @foreach ($reg_size as $r_size)
+
+                                    @if ( $order->product->size_id == $r_size->id)
+                                    @if ($r_size->size == '0')
+                                    <span>Small</span>
+                                    @elseif ($r_size->size == '1')
+                                    <span>Large</span>
+                                    @elseif ($r_size->size == '2')
+                                    @else
+                                    No size
+                                    @endif
+                                    @endif
+
+                                    @endforeach
+                                </td>
+                                <td>{{ $order->qty }}</td>
+                                <td>&#8369;{{ $order->product->bottle->price ?? "Deleted"}}</td>
+
                             </tr>
                             @endforeach
                         </tbody>
@@ -104,11 +135,18 @@ View Order
                                 <td>{{ $orders->payment_mode }}</td>
                                 <td>Shipping Fee:</td>
                                 <td>&#8369;{{ $orders->shipping > 0 ? $orders->shipping : 0}}</td>
+                                <td></td>
+                                <td></td>
                                 <td>Grand Total:</td>
                                 <td>&#8369;{{ $orders->total_price}}</td>
                             </tr>
                         </tfoot>
                     </table>
+                </div>
+                <div class="card-footer">
+
+                    <a href="{{ url('/my-order') }}" class="btn btn-primary float-end"> <i class="fa fa-arrow-left"></i>
+                        Back</a>
                 </div>
             </div>
         </div>

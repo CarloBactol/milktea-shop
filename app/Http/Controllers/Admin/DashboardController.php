@@ -17,11 +17,11 @@ class DashboardController extends Controller
 
         $yearly_income = DB::table('orders')
             ->whereYear('created_at', Carbon::now()->format('Y'))
-            ->where('status', '1')
+            ->where('status', '3')
             ->sum('total_price');
 
         $pending_orders = Order::where('status', '0')->count();
-        $completed_orders = Order::where('status', '1')->count();
+        $completed_orders = Order::where('status', '3')->count();
         $users = User::where('role_as', '0')->count();
         return view('admin.dashboard', compact('pending_orders', 'completed_orders', 'users', 'yearly_income'));
     }

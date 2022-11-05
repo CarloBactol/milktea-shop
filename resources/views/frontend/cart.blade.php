@@ -35,10 +35,12 @@ Cart
                         <tr>
                             <td>
                                 @if ($cart_item->product->image == 'NULL')
-                                <img src="{{ asset('assets/products/1.jpg') }}" alt="" height="60px" width="60px">
+                                <img src="{{ asset('assets/products/1.jpg') }}" class="rounded-circle" alt=""
+                                    height="60px" width="60px">
                                 @else
                                 <img src="{{ asset('assets/products/'. $cart_item->product->image) }}"
-                                    alt="{{ $cart_item->product->name }}" height="60px" width="60px" />
+                                    alt="{{ $cart_item->product->name }}" class="rounded-circle" height="60px"
+                                    width="60px" />
                                 @endif
 
                             </td>
@@ -52,11 +54,14 @@ Cart
                                 $total_add_ons = count($add_ons, 1) * 10 ;
                                 $counter = 0;
                                 @endphp
+                                {{-- Loops the data from json_decode() --}}
                                 @foreach ($add_ons as $addon)
-                                @if ($addon> 0)
+                                @if ($addon > 0)
                                 @foreach ($addons as $add)
                                 <input type="hidden" value="{{  $add_ons_price =  $add->price}}">
-                                {{ $addon == $add->id ? $add->name . "" . $add->price : "" }}
+                                @if ($addon == $add->id)
+                                <span>{{ $add->name }},</span>
+                                @endif
                                 @endforeach
                                 @endif
                                 @endforeach
@@ -67,8 +72,10 @@ Cart
                                 Small
                                 @elseif ($cart_item->bottle->size == 1)
                                 Meduim
-                                @else
+                                @elseif ($cart_item->bottle->size == 2)
                                 Large
+                                @else
+                                "No size"
                                 @endif
                             </td>
                             <td>{{ $cart_item->product_qty }} pcs</td>

@@ -16,22 +16,41 @@ class AddOnsSeeder extends Seeder
     {
         AddOn::create(
             [
-                'name' => 'Bamboo Charcoal',
-                'price' => '10'
+                'name' => 'Classic',
             ],
         );
 
         AddOn::create(
             [
-                'name' => ' Okinawa',
-                'price' => '15'
+                'name' => ' Wintermelon',
             ],
         );
 
         AddOn::create(
             [
-                'name' => 'Hokkaido',
-                'price' => '20'
+                'name' => 'Okinawa',
+            ],
+        );
+
+        AddOn::create(
+            [
+                'name' => 'Taro',
+            ],
+        );
+
+        AddOn::create(
+            [
+                'name' => 'Red velvet ',
+            ],
+        );
+        AddOn::create(
+            [
+                'name' => 'Cookies and cream ',
+            ],
+        );
+        AddOn::create(
+            [
+                'name' => 'Bubble gum ',
             ],
         );
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Size;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -20,18 +21,19 @@ class ProductController extends Controller
     public function show()
     {
         $sizes = Size::all();
-        return view('admin.product.add-product', compact('sizes'));
+        $categories = Category::all();
+        return view('admin.product.add-product', compact('sizes', 'categories'));
     }
 
     // store products 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'qty' => 'required',
             'image' => 'required|image|min:0| max:1024', // image only 1mb required
             'name' => 'required|string|max:200',
             'description' => 'required',
             'size_id' => 'required',
+            'category_id' => 'required',
         ]);
 
         $product = new Product();
@@ -44,10 +46,10 @@ class ProductController extends Controller
             $product->image = $filename;
         }
 
-        $product->qty = $request->input('qty');
         $product->name = $request->input('name');
         $product->description = $request->input('description');
         $product->size_id = $request->input('size_id');
+        $product->category_id = $request->input('category_id');
         $product->status = $request->input('status') == True ? '1' : '0'; // if checkbox is checked 
         $product->popular = $request->input('popular') == True ? '1' : '0';  // if checkbox is checked 
         $product->save();
@@ -59,18 +61,19 @@ class ProductController extends Controller
     public function edit($id)
     {
         $products = Product::findorfail($id);
-        return view('admin.product.edit-product', compact('products'));
+        $categories = Category::all();
+        return view('admin.product.edit-product', compact('products', 'categories'));
     }
 
     // update product form
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'qty' => 'required',
             'image' => 'image|min:0| max:1024', // image only 1mb required
             'name' => 'required|string|max:200',
             'description' => 'required',
             'size_id' => 'required',
+            'category_id' => 'required',
         ]);
 
         $product = Product::findorfail($id);
@@ -88,10 +91,10 @@ class ProductController extends Controller
             $product->image = $filename;
         }
 
-        $product->qty = $request->input('qty');
         $product->name = $request->input('name');
         $product->description = $request->input('description');
         $product->size_id = $request->input('size_id');
+        $product->category_id = $request->input('category_id');
         $product->status = $request->input('status') == True ? '1' : '0'; // if checkbox is checked 
         $product->popular = $request->input('popular') == True ? '1' : '0';  // if checkbox is checked 
         $product->update();

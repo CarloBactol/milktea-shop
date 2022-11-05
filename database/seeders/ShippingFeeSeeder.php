@@ -16,6 +16,7 @@ class ShippingFeeSeeder extends Seeder
     {
         ShippingFee::create([
             'shipping' => '100',
+            'email' => 'admin@gmail.com',
             'user_id' => '1'
         ]);
     }

@@ -26,14 +26,12 @@ class AddOnsController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:200',
-            'price' => 'filled'
         ]);
 
         $add_on = new AddOn();
         $add_on->name = $request->input('name');
-        $add_on->price = $request->input('price');
         $add_on->save();
-        return redirect('/admin/sinker-list')->with('status', 'New Sinker Added!');
+        return response()->json('status', "New data Added");
     }
 
     // edit addOns

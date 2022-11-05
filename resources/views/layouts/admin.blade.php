@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Admin Portal') }}</title>
 
@@ -23,8 +26,11 @@
 
     <!-- Custom styles-->
     <link href="{{ asset('admin/css/custom.css') }}" rel="stylesheet">
-    
-    @yield('dataTable-css')
+    {{-- CSS DATATABLE --}}
+    <link rel="stylesheet" href="{{ asset('admin/css/datatable.css') }}">
+
+    {{-- Toastr --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 </head>
 
@@ -34,7 +40,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-       @include('layouts.inc.admin-sidebar')
+        @include('layouts.inc.admin-sidebar')
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -48,7 +54,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                    @yield('content')
+                @yield('content')
                 <!-- /.container-fluid -->
 
             </div>
@@ -90,23 +96,24 @@
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     {{-- <a class="btn btn-primary" href="login.html">Logout</a> --}}
-                    <a class="btn btn-primary" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
+                    <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
                                   document.getElementById('logout-form').submit();">
-                     {{ __('Logout') }}
-                 </a>
+                        {{ __('Logout') }}
+                    </a>
 
-                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                     @csrf
-                 </form>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('admin/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('admin/js/jquery-3.6.1.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    @stack('script')
+
 
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
@@ -122,17 +129,19 @@
     <script src="{{ asset('admin/js/demo/chart-pie-demo.js') }}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    {{--  swallalert message --}}
+    {{-- Toastr --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    {{-- swallalert message --}}
     @if (session('status'))
-        <script>
-            swal({
+    <script>
+        swal({
                 title: "{{ session('status') }}", 
                 icon: 'success'
             });
-        </script>
+    </script>
     @endif
     @yield('scripts')
-    @yield('dataTable-js')
     @yield('ck-editor')
 
 </body>

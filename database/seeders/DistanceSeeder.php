@@ -18,6 +18,7 @@ class DistanceSeeder extends Seeder
         Distance::create(
             [
                 'user_id' => '1',
+                'email' => 'admin@gmail.com',
                 'name' => '0.9'
             ],
         );

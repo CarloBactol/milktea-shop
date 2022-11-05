@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\AddOn;
+use App\Models\Premium;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,5 +27,10 @@ class Cart extends Model
     public function bottle()
     {
         return  $this->belongsTo(Size::class, 'bottle_size_id', 'id');
+    }
+
+    public function prem_bottle()
+    {
+        return  $this->belongsTo(Premium::class, 'bottle_size_id', 'id');
     }
 }

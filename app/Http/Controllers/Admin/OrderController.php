@@ -6,12 +6,14 @@ use App\Models\AddOn;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::where('status', '0')->get();
+        $orders = Order::where('status', '!=', '3')->get();
+
         return view('admin.order.index', compact('orders'));
     }
 
@@ -34,7 +36,7 @@ class OrderController extends Controller
 
     public function order_history()
     {
-        $orders = Order::where('status', '1')->get();
+        $orders = Order::where('status', '3')->get();
         return view('admin.order.order-history', compact('orders'));
     }
 

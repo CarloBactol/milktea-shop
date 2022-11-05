@@ -15,18 +15,20 @@ Home
       @foreach ($products as $item)
       <div class="item">
         <div class="card">
-         <a href="{{ url('/view-product/'.$item->id) }}">
+          <a href="{{ url('/view-product/'.$item->id) }}">
             @if ($item->image == 'NULL')
             <img src="{{ asset('assets/products/1.jpg') }}" alt="" height="200px">
             @else
             <img src="{{asset('assets/products/'. $item->image) }}" alt="" height="200px">
             @endif
-         </a>
+          </a>
           <div class="card-body">
-            <h5>{{ $item->name }}</h5>
-            <hr>
-            <span>Onhand: {{ $item->qty > 0 ? $item->qty : 'Out of Stock' }}</span><a href="{{ url('/view-product/'.$item->id) }}" class="btn btn-sm btn-success float-end">View</a>
-            <p>{!! Str::limit($item->description, 50)!!}</p>
+            <h5 class="card-title">{{ $item->name }}</h5>
+          </div>
+          <div class="card-footer">
+            <span class="badge bg-success p-2">Best Seller</span>
+            <a href="{{ url('/view-product/'. $item->id) }}" class="btn btn-sm btn-success float-end"><i
+                class="fa fa-eye"></i></a>
           </div>
         </div>
       </div>

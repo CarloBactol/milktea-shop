@@ -19,7 +19,8 @@
         "laravel/ui": "^3.4",
         "mikehaertl/phpwkhtmltopdf": "^2.5",
         "stevebauman/location": "^6.5",
-        "torann/geoip": "^3.0"
+        "torann/geoip": "^3.0",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

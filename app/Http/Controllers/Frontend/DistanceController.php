@@ -16,11 +16,13 @@ class DistanceController extends Controller
         if ($check_user) {
             $distance = Distance::where('user_id', Auth::id())->first();
             $distance->name = $request->input('distance');
+            $distance->email = $request->input('email');
             $distance->update();
         } else {
             $new_record = new Distance();
             $new_record->user_id = Auth::id();
             $new_record->name = $request->input('distance');
+            $new_record->email = $request->input('email');
             $new_record->save();
         }
     }

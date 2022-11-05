@@ -168,6 +168,7 @@ return [
         Barryvdh\Snappy\ServiceProvider::class,
         Stevebauman\Location\LocationServiceProvider::class,
         \Torann\GeoIP\GeoIPServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -234,6 +235,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Location' => 'Stevebauman\Location\Facades\Location',
         'geoip' => \Torann\GeoIP\Facades\GeoIP::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];

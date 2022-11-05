@@ -19,7 +19,11 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductSeeder::class);
         $this->call(BotleSizeSeeder::class);
         $this->call(AddOnsSeeder::class);
-        $this->call(ShippingFeeSeeder::class);
         $this->call(DistanceSeeder::class);
+        $this->call(CategorySeeder::class);
+        $this->call(PremiumSeeder::class);
+        $this->call(PremiumAddonSeeder::class);
+        $this->call(ShippingFeeSeeder::class);
+        $this->call(MileFeeSeeder::class);
     }
 }

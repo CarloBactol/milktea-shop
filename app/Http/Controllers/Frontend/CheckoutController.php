@@ -7,6 +7,7 @@ use App\Models\Size;
 use App\Models\User;
 use App\Models\AddOn;
 use App\Models\Order;
+use App\Models\MileFee;
 use App\Models\Product;
 use App\Models\Distance;
 use App\Models\OrderItem;
@@ -42,10 +43,9 @@ class CheckoutController extends Controller
 
         $distances = Distance::all();
         $addons = AddOn::all();
-        $bottle_size = Size::all();
         $shipping_fees = ShippingFee::all();
         $carts = Cart::where('user_id', Auth::id())->get();
-        return view('frontend.checkout', compact('carts', 'shipping_fees', 'getIp', 'addons', 'bottle_size', 'distances'));
+        return view('frontend.checkout', compact('carts', 'shipping_fees', 'getIp', 'addons', 'distances'));
     }
 
     public function place_order(Request $request)
@@ -94,9 +94,9 @@ class CheckoutController extends Controller
             ]);
 
             // remove cart
-            $prod = Product::where('id', $item->product_id)->first();
-            $prod->qty = $prod->qty - $item->product_qty;
-            $prod->update();
+            // $prod = Product::where('id', $item->product_id)->first();
+            // $prod->qty = $prod->qty - $item->product_qty;
+            // $prod->update();
         }
 
 
@@ -120,66 +120,103 @@ class CheckoutController extends Controller
 
     public function load_ship(Request $request)
     {
+
         $check_if_exist = ShippingFee::where('user_id', Auth::id())->exists();
         $total = 0;
+        $grand_total = 0;
+        $mile_fee = MileFee::all();
+
+
         if ($check_if_exist) {
             $distance = Distance::where('user_id', Auth::id())->first();
             $sanitize = $distance->name;
-            $only_number = filter_var($sanitize, FILTER_SANITIZE_NUMBER_INT);
-            // less than 1km 
-            if ($only_number >= -1) {
-                $total = 100;
-                $driving_fee = ShippingFee::where('user_id', Auth::id())->first();
-                $driving_fee->shipping = $total;
-                $driving_fee->update();
+            $whole_number = intval($sanitize); // set whole number e.ge 12.90 mi to 12 
+            foreach ($mile_fee as $miles) {
+                $mile = $miles->miles;
+                $mile_price = $miles->price;
+                //  compute miles
+                if ($whole_number >= $mile) {
+                    $total = $mile_price;
+                    $driving_fee = ShippingFee::where('user_id', Auth::id())->first();
+                    $driving_fee->shipping = $total;
+                    $driving_fee->email = Auth::user()->email;
+                    $driving_fee->update();
+                } else {
+                    $total = 0;
+                    $driving_fee = ShippingFee::where('user_id', Auth::id())->first();
+                    $driving_fee->shipping = $total;
+                    $driving_fee->email = Auth::user()->email;
+                    $driving_fee->update();
+                }
             }
-            // 12km above
-            if ($only_number >= 120) {
-                $total = 150;
-                $driving_fee = ShippingFee::where('user_id', Auth::id())->first();
-                $driving_fee->shipping = $total;
-                $driving_fee->update();
-            }
-            // check if data is exists
-            $cheeck_user_ship = ShippingFee::where('user_id', Auth::id())->exists();
-            if ($cheeck_user_ship == true) {
-                $update_ship = ShippingFee::where('user_id', Auth::id())->first();
-                $update_ship->shipping = $total;
-                $update_ship->update();
+
+
+            $cart = Cart::where('user_id',  Auth::id())->get();
+            foreach ($cart as $item) {
+                $qty =  $item->product_qty;
+                if ($item->bottle_size_id == $item->bottle->id) {
+                    $btl_size = $item->bottle->price;
+                }
+                $add_ons = json_decode($item->add_ons_id);
+                $total_add_ons = count($add_ons) * 10;
+
+                $sum_of_addons_bottle = $total_add_ons + $btl_size;
+                $sum_of_qty_addons_bottle = $qty * $sum_of_addons_bottle;
+                $grand_total = $sum_of_qty_addons_bottle + $total;
             }
         } else {
             $new_ship  = new ShippingFee();
             $new_ship->user_id = Auth::id();
+            $new_ship->email = Auth::user()->email;
             $new_ship->shipping = $total;
+
             $new_ship->save();
         }
 
-        return response()->json(['count' => $total]);
+        return response()->json(['count' => $total, 'total' => $grand_total]);
     }
 
-    public function load_total()
+    public function confirmation()
     {
+        // IP ADDRESS 
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if (isset($_SERVER['HTTP_X_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if (isset($_SERVER['HTTP_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if (isset($_SERVER['REMOTE_ADDR']))
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = 'UNKNOWN';
 
-        $grand_total = 0;
-        $total = 0;
-        $get_shipping_fee = ShippingFee::where('user_id', Auth::id())->get();
-        foreach ($get_shipping_fee as $fee) {
-            $total = $fee->shipping;
-        }
-        // cart 
-        $cart = Cart::where('user_id',  Auth::id())->get();
-        foreach ($cart as $item) {
-            $qty =  $item->product_qty;
-            if ($item->bottle_size_id == $item->bottle->id) {
-                $btl_size = $item->bottle->price;
-            }
-            $add_ons = json_decode($item->add_ons_id);
-            $total_add_ons = count($add_ons) * 10;
+        $ip = $ipaddress;
+        $getIp = GeoIP::getLocation($ip);
 
-            $sum_of_addons_bottle = $total_add_ons + $btl_size;
-            $sum_of_qty_addons_bottle = $qty * $sum_of_addons_bottle;
-            $grand_total = $sum_of_qty_addons_bottle + $total;
+        $distances = Distance::all();
+        $addons = AddOn::all();
+        $bottle_size = Size::all();
+        $shipping_fees = ShippingFee::all();
+        $carts = Cart::where('user_id', Auth::id())->get();
+        return view("frontend.confirmation", compact('carts', 'shipping_fees', 'getIp', 'addons', 'bottle_size', 'distances'));
+    }
+
+    public function address(Request $request)
+    {
+        $address = $request->input('address');
+        $check_user = User::where('id', Auth::id())->where('address', $address)->exists();
+        if (!$check_user) {
+            $update_address = User::where('id', Auth::id())->first();
+            $update_address->address = $request->input('address');
+            $update_address->update();
+            return redirect('/confirmation')->with('status', "Success Added!");
+        } else {
+            return redirect('/confirmation')->with('status', "Success Added!");
         }
-        return response()->json(['count' => $grand_total]);
     }
 }
