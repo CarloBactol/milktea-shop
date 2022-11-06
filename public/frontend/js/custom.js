@@ -25,6 +25,7 @@ $(document).ready(function () {
     $("#btn-cart").click(function (e) {
         e.preventDefault();
 
+        var category_id = $("#category_id").val();
         var product_id = $(this)
             .closest("#product_data")
             .find("#prod_id")
@@ -64,6 +65,7 @@ $(document).ready(function () {
                 sugar_level: sugar_level,
                 addons: addons,
                 product_qty: product_qty,
+                category_id: category_id,
             },
             complete: function (xmlHttp) {
                 loadCart();

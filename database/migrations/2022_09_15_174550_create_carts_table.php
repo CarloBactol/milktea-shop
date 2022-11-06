@@ -16,6 +16,7 @@ class CreateCartsTable extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->string('sugar_level');
+            $table->integer('category_id')->nullable();
             $table->integer('product_qty');
             $table->integer('bottle_size_id')->default(0);
             $table->string('add_ons_id');

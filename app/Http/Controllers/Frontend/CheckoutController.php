@@ -8,7 +8,9 @@ use App\Models\User;
 use App\Models\AddOn;
 use App\Models\Order;
 use App\Models\MileFee;
+use App\Models\Premium;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Distance;
 use App\Models\OrderItem;
 use App\Models\ShippingFee;
@@ -43,9 +45,10 @@ class CheckoutController extends Controller
 
         $distances = Distance::all();
         $addons = AddOn::all();
+        $premiumAddons = Premium::all();
         $shipping_fees = ShippingFee::all();
         $carts = Cart::where('user_id', Auth::id())->get();
-        return view('frontend.checkout', compact('carts', 'shipping_fees', 'getIp', 'addons', 'distances'));
+        return view('frontend.checkout', compact('carts', 'shipping_fees', 'getIp', 'addons', 'distances', 'premiumAddons'));
     }
 
     public function place_order(Request $request)
@@ -201,9 +204,11 @@ class CheckoutController extends Controller
         $distances = Distance::all();
         $addons = AddOn::all();
         $bottle_size = Size::all();
+        $premiumAddons = Premium::all();
+        $categories = Category::all();
         $shipping_fees = ShippingFee::all();
         $carts = Cart::where('user_id', Auth::id())->get();
-        return view("frontend.confirmation", compact('carts', 'shipping_fees', 'getIp', 'addons', 'bottle_size', 'distances'));
+        return view("frontend.confirmation", compact('carts', 'shipping_fees', 'getIp', 'addons', 'bottle_size', 'distances', 'premiumAddons', 'categories'));
     }
 
     public function address(Request $request)

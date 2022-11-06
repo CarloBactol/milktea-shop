@@ -181,6 +181,8 @@ $route = 0;
 
                                 $sum_of_price_add_ons = 0;
                                 $total = 0;
+                                $total_price = 0;
+                                $prem_price = 0;
                                 @endphp
                                 @foreach ($carts as $cart)
                                 @php
@@ -222,18 +224,33 @@ $route = 0;
                                         @endif
                                     </td>
                                     <td class="text-center">{{ $cart->product_qty}}</td>
-                                    <td>{{
-                                        $cart->bottle_size_id == $cart->bottle->id ?
-                                        '₱'.$cart->bottle->price :
-                                        ""
-                                        }}
+                                    <td>
+                                        @if ($cart->category_id == 2)
+                                        @foreach ($premiumAddons as $prem)
+                                        @if ( $cart->bottle_size_id == $prem->id)
+                                        <input type="hidden" value="{{$prem_price += $prem->price}}">
+                                        ₱{{$prem->price }}
+                                        @endif
+                                        @endforeach
+                                        @else
+                                        <input type="hidden"
+                                            value="{{ $total_price = $cart->bottle->price +  $total_add_ons * $cart->product_qty}}">
+                                        {{ $cart->bottle_size_id == $cart->bottle->id ?
+                                        '₱'.$cart->bottle->price : ""}}
+                                        @endif
                                     </td>
                                 </tr>
                                 {{-- Compute total --}}
                                 @php
+                                if ($cart->category_id == 2) {
+                                $sum_of_price_and_add_ons = $prem_price + $total_add_ons;
+                                $total += $sum_of_price_and_add_ons * $cart->product_qty;
+                                $total_wfee = $total + $ship_fee;
+                                }else {
                                 $sum_of_price_and_add_ons = $cart->bottle->price + $total_add_ons;
                                 $total += $sum_of_price_and_add_ons * $cart->product_qty;
                                 $total_wfee = $total + $ship_fee;
+                                }
                                 @endphp
                                 @endforeach
                             </tbody>
@@ -247,7 +264,7 @@ $route = 0;
                                         <h5>Shipping Fee: <span id="ship-count">{{ $ship_fee }}</span>
                                         </h5>
                                     </td>
-                                    <td colspan="5" style="text-align: end">
+                                    <td colspan="6" style="text-align: end">
                                         <h5>Grand Total: <span id="grand-total">&#8369;{{ $total_wfee}}</span></h5>
                                     </td>
                                 </tr>

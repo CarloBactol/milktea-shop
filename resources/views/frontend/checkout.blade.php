@@ -82,6 +82,7 @@ $route = 0;
 
                                 $sum_of_price_add_ons = 0;
                                 $total = 0;
+                                $prem_price = 0;
                                 @endphp
                                 @foreach ($carts as $cart)
                                 @php
@@ -125,11 +126,20 @@ $route = 0;
                                         @endif
                                     </td>
                                     <td class="text-center">{{ $cart->product_qty}}</td>
-                                    <td>{{
-                                        $cart->bottle_size_id == $cart->bottle->id ?
-                                        '₱'.$cart->bottle->price :
-                                        ""
-                                        }}
+                                    <td>
+                                        @if ($cart->category_id == 2)
+                                        @foreach ($premiumAddons as $prem)
+                                        @if ( $cart->bottle_size_id == $prem->id)
+                                        <input type="hidden" value="{{$prem_price += $prem->price}}">
+                                        ₱{{$prem->price }}
+                                        @endif
+                                        @endforeach
+                                        @else
+                                        <input type="hidden"
+                                            value="{{ $total_price = $cart->bottle->price +  $total_add_ons * $cart->product_qty}}">
+                                        {{ $cart->bottle_size_id == $cart->bottle->id ?
+                                        '₱'.$cart->bottle->price : ""}}
+                                        @endif
                                     </td>
                                 </tr>
                                 {{-- Compute total --}}

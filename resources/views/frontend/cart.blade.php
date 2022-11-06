@@ -55,8 +55,9 @@ Cart
                         // get the the addons array
                         $add_ons = json_decode($cart_item->add_ons_id);
                         // total count of addons
-                        $total_add_ons = count($add_ons, 1) * 10 ;
+                        $total_add_ons = count($add_ons) * 10 ;
                         $counter = 0;
+                        $prem_price = 0;
                         @endphp
                         {{-- Loops the data from json_decode() --}}
                         @foreach ($add_ons as $addon)
@@ -84,8 +85,17 @@ Cart
                     </td>
                     <td>{{ $cart_item->product_qty }} pcs</td>
                     <td>
-                        &#8369;{{ $cart_item->bottle_size_id == $cart_item->bottle->id ?
-                        $cart_item->bottle->price : ""}}
+                        @if ($cart_item->category_id == 2)
+                        @foreach ($premiumAddons as $prem)
+                        @if ( $cart_item->bottle_size_id == $prem->id)
+                        <input type="hidden" value="{{$prem_price += $prem->price}}">
+                        {{$prem->price }}
+                        @endif
+                        @endforeach
+                        @else
+                        {{ $cart_item->bottle_size_id == $cart_item->bottle->id ? $cart_item->bottle->price : ""}}
+                        @endif
+
                     </td>
                     <td>
                         <input type="hidden" value="{{ $cart_id }}" id="cart_id">
@@ -99,8 +109,13 @@ Cart
                 </tr>
                 {{-- Compute total --}}
                 @php
+                if ($cart_item->category_id == 2){
+                $sum_of_price_and_add_ons = $prem_price + $total_add_ons;
+                $total += $sum_of_price_and_add_ons * $cart_item->product_qty;
+                }else{
                 $sum_of_price_and_add_ons = $cart_item->bottle->price + $total_add_ons;
                 $total += $sum_of_price_and_add_ons * $cart_item->product_qty;
+                }
                 @endphp
                 @endforeach
             </tbody>

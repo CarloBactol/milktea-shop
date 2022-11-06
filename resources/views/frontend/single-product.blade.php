@@ -79,7 +79,7 @@ View Product
                         <div>
 
                             @if($products->category_id == '2')
-
+                            <input type="hidden" value="2" id="category_id">
                             @foreach ($premiumAddOn as $premAdd)
                             <label for="{{ $premAdd->name }}">{{ $premAdd->name }}</label>
                             <input type="checkbox" class=" @error('name') is-invalid @enderror"
